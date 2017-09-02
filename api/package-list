@@ -1,0 +1,2 @@
+griffon.plugins.mail
+org.codehaus.griffon.runtime.mail

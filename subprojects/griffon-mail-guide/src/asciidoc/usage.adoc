@@ -1,0 +1,64 @@
+
+[[_Usage]]
+= Usage
+
+The following sections describe how you may use this plugin in a project.
+
+== Configuration
+
+The plugin's <<_modules, module>> registers a `{api_mail_handler}` helper class that defines the base contract
+for sending messages using the Java Mail API.
+
+[source,java,options="nowrap"]
+.griffon.plugins.mail.MailHandler.java
+----
+include::{path_griffon_mail_core}/src/main/java/griffon/plugins/mail/MailHandler.java[tags=methods,indent=0]
+----
+
+The `endMail` blocks until the mail is sent or until the request times out. You are responsible for making sure it is
+called off of the UI thread so it doesn't affect your application if the SMTP server is not available.
+
+The following options may be defined:
+
+|===
+| Property    | Type               | Required | Notes
+
+| transport   | Transport          | no       | either SMTP or SMTPS. Defaults to SMTP
+| host        | String             | yes      | the address of the SMTP server, e.g. 'smtp.google.com'
+| port        | String             | no       | the port of the SMTP server. Defaults appropriately for the transport specified
+| auth        | boolean            | no       | true if authentication is required, false otherwise. Defaults to false
+| user        | String             | no       | the username for authenticating with the SMTP server. Only used if auth=true
+| password    | String             | no       | the password for authenticating with the SMTP server. Only used if auth=true
+| from        | String             | no       | the message sender, e.g. 'foo@bar.com'
+| to          | String             | yes      | the message recipient(s), e.g. 'foo@bar.com'. Multiple addresses may be specified as a comma-separated list, e.g. 'foo@bar.com, bar@bar.com'
+| cc          | String             | no       | the CC recipients(s), e.g. 'foo@bar.com'. Multiple addresses may be specified as a comma-separated list, e.g. 'foo@bar.com, bar@bar.com'
+| bcc         | String             | no       | the BCC recipients(s), e.g. 'foo@bar.com'. Multiple addresses may be specified as a comma-separated list, e.g. 'foo@bar.com, bar@bar.com'
+| subject     | String             | no       | the message subject.
+| mimeType    | MimeType           | no       | the message's mime-type. Default is TEXT
+| attachments | List<String>       | no       | the list of file paths (as Strings) to attach to the email
+| props       | Map<String,Object> | no       | additional properties
+|===
+
+You can inject an instance of `{api_mail_handler}` anywhere it's needed using `@Inject`.
+
+== Defaults
+
+With the exception of `to`, all parameters may be defined in the application's configuration file, using `mail` as a prefix.
+For example here is how you would configure the default sender to send with a Gmail account:
+
+[source, groovy, options="nowrap"]
+.griffon-app/conf/Config.groovy
+----
+mail {
+    host     = 'smtp.gmail.com'
+    port     = 465
+    username = 'youraccount@gmail.com'
+    password = 'yourpassword'
+    props = [
+        'mail.smtp.auth': 'true',
+        'mail.smtp.socketFactory.port': '465',
+        'mail.smtp.socketFactory.class': 'javax.net.ssl.SSLSocketFactory',
+        'mail.smtp.socketFactory.fallback': 'false'
+    ]
+}
+----

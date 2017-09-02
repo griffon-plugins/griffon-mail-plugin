@@ -1,0 +1,4 @@
+
+:api_mail_handler: link:api/griffon/plugins/mail/MailHandler.html[MailHandler, window="_blank"]
+
+:path_griffon_mail_core: {rootdir}/subprojects/griffon-mail-core

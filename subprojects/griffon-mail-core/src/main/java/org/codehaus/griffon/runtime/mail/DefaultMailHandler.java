@@ -1,11 +1,13 @@
 /*
- * Copyright 2014-2017 the original author or authors.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * Copyright 2014-2020 The author and/or original authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,7 +25,7 @@ import griffon.plugins.mail.MimeType;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
-import javax.annotation.Nonnull;
+import griffon.annotations.core.Nonnull;
 import javax.inject.Inject;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -62,7 +64,7 @@ public class DefaultMailHandler implements MailHandler {
     public void sendMail(@Nonnull MailOptions options) {
         requireNonNull(options, "Argument 'options' must not be null");
 
-        Map<String, Object> defaultOptions = griffonApplication.getConfiguration().getAs("mail.options", Collections.<String, Object>emptyMap());
+        Map<String, Object> defaultOptions = griffonApplication.getConfiguration().getAt("mail.options", Collections.<String, Object>emptyMap());
         options = merge(options, defaultOptions);
 
         requireState(!isBlank(options.getHost()), "Argument 'host' must not be blank");

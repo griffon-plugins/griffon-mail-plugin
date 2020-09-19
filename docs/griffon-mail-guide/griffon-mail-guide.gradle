@@ -15,27 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package griffon.plugins.mail;
+ext.projectDependencies = [
+    ':griffon-mail-core'
+]
 
-import griffon.annotations.core.Nonnull;
-
-import static griffon.util.GriffonNameUtils.requireNonBlank;
-
-/**
- * @author Andres Almiray
- * @since 1.0.0
- */
-public enum MimeType {
-    TEXT("text/plain"),
-    HTML("text/html");
-
-    private String code;
-
-    MimeType(@Nonnull String code) {
-        this.code = requireNonBlank(code, "Argument 'code' must not be blank");
-    }
-
-    public String getCode() {
-        return code;
-    }
-}
+ext.projectDependencies.each { evaluationDependsOn it }

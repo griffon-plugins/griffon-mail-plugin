@@ -28,7 +28,7 @@ import javax.inject.Named;
  * @author Andres Almiray
  * @since 1.0.0
  */
-@Named("rmi")
+@Named("mail")
 @ServiceProviderFor(Module.class)
 public class MailModule extends AbstractModule {
     @Override

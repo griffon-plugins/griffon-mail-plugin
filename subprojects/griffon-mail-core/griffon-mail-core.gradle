@@ -22,9 +22,3 @@ dependencies {
     testImplementation "com.icegreen:greenmail:$greenmailVersion"
     testImplementation "org.codehaus.griffon:griffon-beans:${griffonVersion}"
 }
-
-jar {
-    manifest {
-        attributes('Automatic-Module-Name': project.group + '.mail.core')
-    }
-}
